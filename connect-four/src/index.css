@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.cls-1,
+.cls-2 {
+  fill: none;
+  stroke: #818fb4;
+  stroke-miterlimit: 10;
+  stroke-width: 1.91px;
+}
+
+.cls-1 {
+  stroke-linecap: square;
+}

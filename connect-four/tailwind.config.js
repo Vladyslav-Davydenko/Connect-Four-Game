@@ -20,6 +20,14 @@ export default {
           from: { transform: "translate(0, 3rem)", opacity: "0" },
           to: { transform: "translate(0, 0)", opacity: "1" },
         },
+        appear_left: {
+          from: { transform: "translate(3rem, 0)", opacity: "0" },
+          to: { transform: "translate(0, 0)", opacity: "1" },
+        },
+        appear_right: {
+          from: { transform: "translate(-3rem, 0)", opacity: "0" },
+          to: { transform: "translate(0, 0)", opacity: "1" },
+        },
       },
       animation: {
         wiggle: "wiggle 2s ease-in-out infinite",
@@ -27,6 +35,10 @@ export default {
         appear_2: "appear 1s ease-in-out 0.5s",
         appear_3: "appear 1s ease-in-out 0.75s",
         appear_4: "appear 1s ease-in-out 1s",
+        appear_left_1: "appear_left 1s ease-in-out 0.25s",
+        appear_right_1: "appear_right 1s ease-in-out 0.5s",
+        appear_left_2: "appear_left 1s ease-in-out 0.75s",
+        appear_right_2: "appear_right 1s ease-in-out 1s",
       },
     },
   },
