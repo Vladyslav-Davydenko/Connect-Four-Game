@@ -8,7 +8,7 @@ export function InfoPage(): JSX.Element {
       </h1>
       <div className="flex flex-col gap-20 text-lg my-5">
         <div className="flex justify-between gap-5 items-center">
-          <div className=" size-16 bg-yellow rounded-full relative">
+          <div className=" size-16 bg-yellow rounded-full relative shadow-xl">
             <div className=" size-12 bg-yellow rounded-full absolute inset-2 shadow-inner"></div>
           </div>
           <p className="w-[70%] animate-appear_left_1 transition-all duration-500 opacity-0 fill-mode-forwards">
@@ -73,7 +73,7 @@ export function InfoPage(): JSX.Element {
           </div>
         </div>
         <div className="flex justify-between gap-5 items-center">
-          <div className=" size-16 bg-red rounded-full relative">
+          <div className=" size-16 bg-red rounded-full relative shadow-xl">
             <div className=" size-12 bg-red rounded-full absolute inset-2 shadow-inner"></div>
           </div>
           <p className="w-[70%] animate-appear_left_2 transition-all duration-500 opacity-0 fill-mode-forwards">

@@ -26,9 +26,9 @@ export function StartGamePage(): JSX.Element {
         >
           DashBoard
         </Link>
-        <button className="py-3 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_4 fill-mode-backwards">
+        {/* <button className="py-3 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_4 fill-mode-backwards">
           Exit
-        </button>
+        </button> */}
       </div>
     </div>
   );
