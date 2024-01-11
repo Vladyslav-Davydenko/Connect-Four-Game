@@ -16,11 +16,19 @@ export default {
           "0%, 100%": { transform: "rotate(-3deg)" },
           "50%": { transform: "rotate(3deg)" },
         },
+        appear: {
+          from: { transform: "translate(0, 3rem)", opacity: "0" },
+          to: { transform: "translate(0, 0)", opacity: "1" },
+        },
       },
       animation: {
         wiggle: "wiggle 2s ease-in-out infinite",
+        appear_1: "appear 1s ease-in-out 0.25s",
+        appear_2: "appear 1s ease-in-out 0.5s",
+        appear_3: "appear 1s ease-in-out 0.75s",
+        appear_4: "appear 1s ease-in-out 1s",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
