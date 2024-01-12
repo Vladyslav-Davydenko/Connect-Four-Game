@@ -16,22 +16,22 @@ export default function BoardSlot({
   onClickCallback,
 }: Props): JSX.Element {
   const outerClasses = clsx({
-    "size-16 rounded-full relative shadow-xl": true,
-    "bg-dark-blue": ch === "",
+    "size-16 rounded-full relative animate-drop_down": ch !== "",
     "bg-red": ch === "X",
     "bg-yellow": ch === "O",
   });
   const innerClasses = clsx({
     "size-12 rounded-full absolute inset-2 shadow-inner": ch !== "",
-    "bg-dark-blue": ch === "",
     "bg-red": ch === "X",
     "bg-yellow": ch === "O",
   });
 
   return (
     <div onClick={() => onClickCallback(x, y)}>
-      <div className={outerClasses}>
-        <div className={innerClasses}></div>
+      <div className="size-16 rounded-full bg-dark-blue">
+        <div className={outerClasses}>
+          <div className={innerClasses}></div>
+        </div>
       </div>
     </div>
   );

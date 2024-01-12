@@ -28,6 +28,10 @@ export default {
           from: { transform: "translate(-3rem, 0)", opacity: "0" },
           to: { transform: "translate(0, 0)", opacity: "1" },
         },
+        drop_down: {
+          "0%": { transform: "translate(0, -30rem)", opacity: "0" },
+          "100%": { transform: "translate(0, 0)", opacity: "1" },
+        },
       },
       animation: {
         wiggle: "wiggle 2s ease-in-out infinite",
@@ -39,6 +43,7 @@ export default {
         appear_right_1: "appear_right 1s ease-in-out 0.5s",
         appear_left_2: "appear_left 1s ease-in-out 0.75s",
         appear_right_2: "appear_right 1s ease-in-out 1s",
+        drop_down: "drop_down 700ms ease-in-out",
       },
     },
   },
