@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { BoardType } from "../../../types/board.type";
 
@@ -14,6 +14,50 @@ export function GamePage(): JSX.Element {
     ["", "", "", "", "", "", ""],
   ]);
   const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
+  const [gameOver, setGameOver] = useState<boolean>(false);
+
+  useEffect(() => {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length + 1; j++) {
+        try {
+          if (
+            board[i][j] !== "" &&
+            board[i][j] === board[i][j + 1] &&
+            board[i][j] === board[i][j + 2] &&
+            board[i][j] === board[i][j + 3]
+          ) {
+            setGameOver(true);
+          }
+          if (
+            board[i][j] !== "" &&
+            board[i][j] === board[i + 1][j] &&
+            board[i][j] === board[i + 2][j] &&
+            board[i][j] === board[i + 3][j]
+          ) {
+            setGameOver(true);
+          }
+          if (
+            board[i][j] !== "" &&
+            board[i][j] === board[i + 1][j + 1] &&
+            board[i][j] === board[i + 2][j + 2] &&
+            board[i][j] === board[i + 3][j + 3]
+          ) {
+            setGameOver(true);
+          }
+          if (
+            board[i][j] !== "" &&
+            board[i][j] === board[i + 1][j - 1] &&
+            board[i][j] === board[i + 2][j - 2] &&
+            board[i][j] === board[i + 3][j - 3]
+          ) {
+            setGameOver(true);
+          }
+        } catch (e: any) {
+          // Silent skip
+        }
+      }
+    }
+  }, [board]);
 
   const updateBoard = (x: number, y: number, ch: "X" | "O") => {
     setBoard((prev) => {
@@ -31,8 +75,7 @@ export function GamePage(): JSX.Element {
     });
     if (y !== board.length - 1) y -= 1;
     if (board[y][x] !== "") y -= 1;
-
-    updateBoard(x, y, currentPlayer);
+    if (!gameOver) updateBoard(x, y, currentPlayer);
   };
 
   return (
@@ -53,9 +96,15 @@ export function GamePage(): JSX.Element {
           })
         )}
       </div>
-      <h1 className="text-yellow text-4xl pt-4">{`Player ${
-        currentPlayer === "X" ? "1" : "2"
-      } is moving`}</h1>
+      {gameOver ? (
+        <h1 className="text-yellow text-4xl pt-4">{`Player ${
+          currentPlayer === "X" ? "1" : "2"
+        } win the game`}</h1>
+      ) : (
+        <h1 className="text-yellow text-4xl pt-4">{`Player ${
+          currentPlayer === "X" ? "1" : "2"
+        } is moving`}</h1>
+      )}
     </div>
   );
 }
