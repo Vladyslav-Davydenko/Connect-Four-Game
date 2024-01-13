@@ -28,7 +28,7 @@ export default function BoardSlot({
 
   return (
     <div onClick={() => onClickCallback(x, y)}>
-      <div className="size-16 rounded-full bg-dark-blue">
+      <div className="size-16 rounded-full bg-dark-blue animate-bg_fade_in">
         <div className={outerClasses}>
           <div className={innerClasses}></div>
         </div>
