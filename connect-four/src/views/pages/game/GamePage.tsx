@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 import { BoardType } from "../../../types/board.type";
+import Icon from "../../components/icon/Icon";
 
-import BoardSlot from "../../components/slots/BoardSlot";
+import Board from "../../components/board/Board";
 
 import { Link } from "react-router-dom";
 
@@ -18,6 +19,8 @@ export function GamePage(): JSX.Element {
   const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [playerOneCount, setPlayerOneCount] = useState<number>(0);
+  const [playerTwoCount, setPlayerTwoCount] = useState<number>(0);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
@@ -78,6 +81,8 @@ export function GamePage(): JSX.Element {
       ["", "", "", "", "", "", ""],
     ]);
     setCurrentPlayer("X");
+    setPlayerOneCount(0);
+    setPlayerTwoCount(0);
   };
 
   const updateBoard = (x: number, y: number, ch: "X" | "O") => {
@@ -86,6 +91,8 @@ export function GamePage(): JSX.Element {
       boardCopy[y][x] = ch;
       return boardCopy;
     });
+    if (currentPlayer === "X") setPlayerOneCount((prev) => (prev += 1));
+    if (currentPlayer === "O") setPlayerTwoCount((prev) => (prev += 1));
     setCurrentPlayer(ch === "X" ? "O" : "X");
     return;
   };
@@ -99,15 +106,19 @@ export function GamePage(): JSX.Element {
     if (!gameOver) updateBoard(x, y, currentPlayer);
   };
 
-  const handleSaveGame = async () => {
-    console.log(board);
-    console.log("---------------------");
-    console.log(`Player ${currentPlayer === "X" ? "2" : "1"} win the game`);
+  const handleSaveGame = () => {
     if (buttonRef.current) {
       buttonRef.current.innerText = "Saving...";
       buttonRef.current.setAttribute("disabled", "true");
       setTimeout(() => {
         buttonRef.current!.innerText = "Saved";
+        console.log(board);
+        console.log("---------------------");
+        console.log(`Player ${currentPlayer === "X" ? "2" : "1"} win the game`);
+        console.log("---------------------");
+        console.log(
+          `Player 1 => ${playerOneCount} points\nPlayer 2 => ${playerTwoCount} points`
+        );
       }, 1000);
     }
   };
@@ -140,39 +151,54 @@ export function GamePage(): JSX.Element {
           </div>
         </div>
       )}
-      <div className="flex flex-col gap-6 text-center ">
-        <div className="grid grid-cols-7 gap-4 bg-white p-6 rounded-lg shadow-xl  animate-bg_fade_in">
-          {board.map((row, i) =>
-            row.map((ch, j) => {
-              return (
-                <div key={i + "-" + j}>
-                  <BoardSlot
-                    x={j}
-                    y={i}
-                    ch={ch}
-                    onClickCallback={handleOnClick}
-                  />
-                </div>
-              );
-            })
-          )}
+      <div className="flex gap-8 justify-center items-center">
+        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative">
+          <div className=" absolute left-1/2 transform -translate-x-1/2 -translate-y-8">
+            <div className="size-16 rounded-full relative animate-drop_down bg-red flex items-center justify-center shadow-lg">
+              <div className="size-12 rounded-full absolute shadow-inner bg-red"></div>
+            </div>
+            <div className="text-center">
+              <h1 className="text-dark-blue text-xl mt-2">Player 1</h1>
+              <p className="text-dark-blue text-4xl mt-4">{playerOneCount}</p>
+            </div>
+          </div>
         </div>
-        <h1 className="text-yellow text-4xl pt-4">{`Player ${
-          currentPlayer === "X" ? "1" : "2"
-        } is moving`}</h1>
-        <div className="flex justify-between">
-          <Link
-            to={"/"}
-            className="py-3 px-6 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"
-          >
-            Return Back
-          </Link>
-          <button
-            className="py-3 px-6 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"
-            onClick={handleRestartGame}
-          >
-            Start Over
-          </button>
+        <div className="flex flex-col gap-6 text-center">
+          <div className="flex justify-between mb-5 items-center">
+            <Link
+              to={"/"}
+              className="py-1 px-2 border-white text-white border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards text-center"
+            >
+              Return Back
+            </Link>
+            <Icon />
+            <button
+              className="py-1 px-2 border-white text-white  border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"
+              onClick={handleRestartGame}
+            >
+              Start Over
+            </button>
+          </div>
+          <Board board={board} handleOnClick={handleOnClick} />
+          <div className="flex justify-center items-center">
+            <div className=" h-28 w-28 bg-red rounded-lg shadow-xl flex items-center border-black border-2 flex-col relative">
+              <div className=" h-[5.2rem] w-[5.2rem] bg-red rounded-lg flex items-center border-black border-2 rotate-45 -top-9 absolute border-b-0 border-r-0"></div>
+              <h1 className="text-yellow text-xl z-10 mt-4">{`Player ${
+                currentPlayer === "X" ? "1" : "2"
+              } is moving`}</h1>
+            </div>
+          </div>
+        </div>
+        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative">
+          <div className=" absolute left-1/2 transform -translate-x-1/2 -translate-y-8">
+            <div className="size-16 rounded-full relative animate-drop_down bg-yellow flex items-center justify-center shadow-lg">
+              <div className="size-12 rounded-full absolute shadow-inner bg-yellow"></div>
+            </div>
+            <div className="text-center">
+              <h1 className="text-dark-blue text-xl mt-2">Player 2</h1>
+              <p className="text-dark-blue text-4xl mt-4">{playerTwoCount}</p>
+            </div>
+          </div>
         </div>
       </div>
     </>
