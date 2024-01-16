@@ -1,4 +1,4 @@
-import { BoardType } from "../../../types/board.type";
+import { BoardType } from "../../../types/board/board.type";
 import BoardSlot from "../slots/BoardSlot";
 
 interface Props {

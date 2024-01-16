@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
-import { BoardType } from "../../../types/board.type";
+import { boardService } from "../../../../api";
+
+import { BoardType } from "../../../types/board/board.type";
+import { Connect4Game } from "../../../types/domain/board.model";
+
 import Icon from "../../components/icon/Icon";
 
 import Board from "../../components/board/Board";
@@ -106,7 +110,20 @@ export function GamePage(): JSX.Element {
     if (!gameOver) updateBoard(x, y, currentPlayer);
   };
 
-  const handleSaveGame = () => {
+  const handleSaveGame = async () => {
+    const preparedData: Omit<Connect4Game, ""> = {
+      id: "9",
+      board,
+      winner: currentPlayer === "X" ? "O" : "X",
+      player1Score: playerOneCount,
+      player2Score: playerTwoCount,
+    };
+    try {
+      const responce = await boardService.createNewData(preparedData);
+      console.log(responce);
+    } catch (err) {
+      console.log(err);
+    }
     if (buttonRef.current) {
       buttonRef.current.innerText = "Saving...";
       buttonRef.current.setAttribute("disabled", "true");

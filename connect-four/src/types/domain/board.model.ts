@@ -1,6 +1,8 @@
+import { BoardType } from "../board/board.type";
+
 export type Connect4Game = {
-  id: number;
-  board: string[][];
+  id: string;
+  board: BoardType[][];
   winner: string | null;
   player1Score: number;
   player2Score: number;

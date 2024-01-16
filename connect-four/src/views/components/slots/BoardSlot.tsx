@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { BoardType } from "../../../types/board.type";
+import { BoardType } from "../../../types/board/board.type";
 
 type Props = {
   x: number;
