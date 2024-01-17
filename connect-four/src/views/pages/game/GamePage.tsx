@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
-import { boardService } from "../../../../api";
+import { useAppDispatch } from "../../../redux/hooks";
+
+import { addBoard } from "../../../redux/board/BoardSlice";
 
 import { BoardType } from "../../../types/board/board.type";
 import { Connect4Game } from "../../../types/domain/board.model";
@@ -26,6 +28,8 @@ export function GamePage(): JSX.Element {
   const [playerOneCount, setPlayerOneCount] = useState<number>(0);
   const [playerTwoCount, setPlayerTwoCount] = useState<number>(0);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
@@ -111,32 +115,24 @@ export function GamePage(): JSX.Element {
   };
 
   const handleSaveGame = async () => {
-    const preparedData: Omit<Connect4Game, ""> = {
-      id: "9",
+    const preparedData: Omit<Connect4Game, "id"> = {
       board,
       winner: currentPlayer === "X" ? "O" : "X",
       player1Score: playerOneCount,
       player2Score: playerTwoCount,
     };
     try {
-      const responce = await boardService.createNewData(preparedData);
-      console.log(responce);
+      if (buttonRef.current) {
+        buttonRef.current.innerText = "Saving...";
+        buttonRef.current.setAttribute("disabled", "true");
+      }
+      const responce = await dispatch(addBoard(preparedData)).unwrap();
+      if (responce) {
+        buttonRef.current!.innerText = "Saved";
+      }
     } catch (err) {
       console.log(err);
-    }
-    if (buttonRef.current) {
-      buttonRef.current.innerText = "Saving...";
-      buttonRef.current.setAttribute("disabled", "true");
-      setTimeout(() => {
-        buttonRef.current!.innerText = "Saved";
-        console.log(board);
-        console.log("---------------------");
-        console.log(`Player ${currentPlayer === "X" ? "2" : "1"} win the game`);
-        console.log("---------------------");
-        console.log(
-          `Player 1 => ${playerOneCount} points\nPlayer 2 => ${playerTwoCount} points`
-        );
-      }, 1000);
+      buttonRef.current!.innerText = "Not Saved";
     }
   };
 

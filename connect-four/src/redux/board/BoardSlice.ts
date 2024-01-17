@@ -58,7 +58,7 @@ export const deleteBoard = createAsyncThunk<
   string,
   string,
   { rejectValue: SerializedError }
->("boards/addBoard", async (id, thunkAPI): Promise<string> => {
+>("boards/deleteBoard", async (id, thunkAPI): Promise<string> => {
   try {
     await boardService.deleteData(id);
     return id;
