@@ -14,6 +14,7 @@ import { Connect4Game } from "../../types/domain";
 
 import { toSerializedError } from "../app/utils";
 import { Status } from "../../types/domain";
+import { RootState } from "../store";
 
 type InitialBoardState = EntityState<Connect4Game, string> & {
   status: Status;
@@ -93,3 +94,9 @@ export const boardSlice = createSlice({
     });
   },
 });
+
+export const {
+  selectAll: selectAllBoards,
+  selectById: selectBoardByID,
+  selectIds: selectBoardIDs,
+} = boardAdapter.getSelectors((rootState: RootState) => rootState.boards);
