@@ -1,8 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useAppDispatch } from "../../../redux/hooks";
+import { useAppSelector } from "../../../redux/hooks";
+
+import { Status } from "../../../types/domain";
+
+import { selectStatus } from "../../../redux/board/BoardSlice";
+import { selectError } from "../../../redux/board/BoardSlice";
 
 import { addBoard } from "../../../redux/board/BoardSlice";
+import { refreshStatus } from "../../../redux/board/BoardSlice";
 
 import { BoardType } from "../../../types/board/board.type";
 import { Connect4Game } from "../../../types/domain/board.model";
@@ -29,7 +36,19 @@ export function GamePage(): JSX.Element {
   const [playerTwoCount, setPlayerTwoCount] = useState<number>(0);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
+  const status = useAppSelector(selectStatus);
+  const error = useAppSelector(selectError);
   const dispatch = useAppDispatch();
+
+  type ButtonNamingType<T extends Status> = { [K in T]?: string };
+
+  const buttonNaming: ButtonNamingType<Status> = {
+    loading: "Saving...",
+    idle: "Save the game",
+    succeeded: "Saved",
+  };
+
+  console.log(status);
 
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
@@ -41,6 +60,7 @@ export function GamePage(): JSX.Element {
             board[i][j] === board[i][j + 2] &&
             board[i][j] === board[i][j + 3]
           ) {
+            dispatch(refreshStatus());
             setGameOver(true);
             setIsOpen(true);
           }
@@ -50,6 +70,7 @@ export function GamePage(): JSX.Element {
             board[i][j] === board[i + 2][j] &&
             board[i][j] === board[i + 3][j]
           ) {
+            dispatch(refreshStatus());
             setGameOver(true);
             setIsOpen(true);
           }
@@ -59,6 +80,7 @@ export function GamePage(): JSX.Element {
             board[i][j] === board[i + 2][j + 2] &&
             board[i][j] === board[i + 3][j + 3]
           ) {
+            dispatch(refreshStatus());
             setGameOver(true);
             setIsOpen(true);
           }
@@ -68,6 +90,7 @@ export function GamePage(): JSX.Element {
             board[i][j] === board[i + 2][j - 2] &&
             board[i][j] === board[i + 3][j - 3]
           ) {
+            dispatch(refreshStatus());
             setGameOver(true);
             setIsOpen(true);
           }
@@ -122,17 +145,9 @@ export function GamePage(): JSX.Element {
       player2Score: playerTwoCount,
     };
     try {
-      if (buttonRef.current) {
-        buttonRef.current.innerText = "Saving...";
-        buttonRef.current.setAttribute("disabled", "true");
-      }
-      const responce = await dispatch(addBoard(preparedData)).unwrap();
-      if (responce) {
-        buttonRef.current!.innerText = "Saved";
-      }
+      await dispatch(addBoard(preparedData)).unwrap();
     } catch (err) {
       console.log(err);
-      buttonRef.current!.innerText = "Not Saved";
     }
   };
 
@@ -142,9 +157,13 @@ export function GamePage(): JSX.Element {
         <div className="absolute bg-black bg-opacity-40 h-dvh w-full z-10 flex justify-center items-center animate-bg_fade_in">
           <div className=" bg-blue p-10 rounded-xl shadow-lg absolute z-20 opacity-0 animate-appear_3 fill-mode-forwards flex flex-col justify-center items-center gap-10">
             <h1 className="text-yellow text-4xl">Congratulation!</h1>
-            <h2 className="text-yellow text-2xl">{`Player ${
-              currentPlayer === "X" ? "2" : "1"
-            } win the game`}</h2>
+            {error ? (
+              <h2 className="text-yellow text-2xl">{error.message}</h2>
+            ) : (
+              <h2 className="text-yellow text-2xl">{`Player ${
+                currentPlayer === "X" ? "2" : "1"
+              } win the game`}</h2>
+            )}
             <div>
               <button
                 className="py-3 px-6 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"
@@ -157,8 +176,9 @@ export function GamePage(): JSX.Element {
                 className="py-3 px-6 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards disabled:opacity-75"
                 onClick={handleSaveGame}
                 ref={buttonRef}
+                disabled={status !== "idle"}
               >
-                Save the Game
+                {buttonNaming[status]}
               </button>
             </div>
           </div>

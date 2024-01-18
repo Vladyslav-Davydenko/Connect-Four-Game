@@ -71,7 +71,11 @@ export const deleteBoard = createAsyncThunk<
 export const boardSlice = createSlice({
   name: "boards",
   initialState,
-  reducers: {},
+  reducers: {
+    refreshStatus: (state) => {
+      state.status = "idle";
+    },
+  },
   extraReducers: (builder) => {
     [fetchBoards, addBoard, deleteBoard].forEach((thunk) => {
       builder.addCase(thunk.pending, (state) => {
@@ -85,12 +89,15 @@ export const boardSlice = createSlice({
     });
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
       boardAdapter.upsertMany(state, action.payload);
+      state.status = "succeeded";
     });
     builder.addCase(deleteBoard.fulfilled, (state, action) => {
       boardAdapter.removeOne(state, action.payload);
+      state.status = "succeeded";
     });
     builder.addCase(addBoard.fulfilled, (state, action) => {
       boardAdapter.addOne(state, action);
+      state.status = "succeeded";
     });
   },
 });
@@ -100,3 +107,8 @@ export const {
   selectById: selectBoardByID,
   selectIds: selectBoardIDs,
 } = boardAdapter.getSelectors((rootState: RootState) => rootState.boards);
+
+export const selectStatus = (rootState: RootState) => rootState.boards.status;
+export const selectError = (rootState: RootState) => rootState.boards.error;
+
+export const { refreshStatus } = boardSlice.actions;
