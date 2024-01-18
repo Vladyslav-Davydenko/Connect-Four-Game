@@ -94,7 +94,7 @@ export function GamePage(): JSX.Element {
             setGameOver(true);
             setIsOpen(true);
           }
-        } catch (e: any) {
+        } catch (e) {
           // Silent skip
         }
       }
@@ -132,8 +132,10 @@ export function GamePage(): JSX.Element {
     let y = board.findIndex((rowArr, index) => {
       return rowArr[x] !== "" || index === board.length - 1;
     });
+    if (y <= 0) return null;
     if (y !== board.length - 1) y -= 1;
     if (board[y][x] !== "") y -= 1;
+
     if (!gameOver) updateBoard(x, y, currentPlayer);
   };
 

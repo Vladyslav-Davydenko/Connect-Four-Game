@@ -13,6 +13,7 @@ export function DashBoardPage(): JSX.Element {
       <h1 className="text-yellow text-7xl mb-20 animate-wiggle text-cente">
         Dash Board
       </h1>
+      {!boardIds.length && <p>No data has been saved yet</p>}
       <div className="flex justify-between mb-5 items-center">
         <Link
           to={"/"}
