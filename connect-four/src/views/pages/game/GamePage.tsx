@@ -48,8 +48,6 @@ export function GamePage(): JSX.Element {
     succeeded: "Saved",
   };
 
-  console.log(status);
-
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board.length + 1; j++) {

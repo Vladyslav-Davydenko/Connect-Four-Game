@@ -24,7 +24,6 @@ export function DashBoardPage(): JSX.Element {
       </div>
       <div className="flex flex-col gap-6">
         {boardIds.map((id, index) => {
-          console.log(index);
           return <SingleUnit id={id} key={id} index={index + 1} />;
         })}
       </div>
