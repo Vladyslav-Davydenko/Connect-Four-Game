@@ -1,7 +1,10 @@
 import { useAppSelector } from "../../../redux/hooks";
 
-import { selectBoardIDs } from "../../../redux/board/BoardSlice";
-import { selectStatus } from "../../../redux/board/BoardSlice";
+import {
+  selectBoardIDs,
+  selectStatus,
+  selectTotalCountPlayerWin,
+} from "../../../redux/board/BoardSlice";
 
 import SingleUnit from "../../components/dashboard/SingleUnit";
 import { Link } from "react-router-dom";
@@ -11,6 +14,12 @@ import Loader from "../../components/loader/Loader";
 export function DashBoardPage(): JSX.Element {
   const boardIds = useAppSelector(selectBoardIDs);
   const status = useAppSelector(selectStatus);
+  const playerOneCount = useAppSelector((rootState) =>
+    selectTotalCountPlayerWin(rootState, "X")
+  );
+  const playerTwoCount = useAppSelector((rootState) =>
+    selectTotalCountPlayerWin(rootState, "O")
+  );
 
   return (
     <div className="flex flex-col gap-6 w-[70%] justify-center items-center m-10">
@@ -19,14 +28,34 @@ export function DashBoardPage(): JSX.Element {
       </h1>
       {!boardIds.length && <p>No data has been saved yet</p>}
       {status === "loading" && <Loader />}
-      {}
-      <div className="flex justify-between mb-5 items-center">
+      <div className="flex justify-center mb-5 items-center gap-24 w-full">
+        <div className="flex gap-2 w-32">
+          <p>Total games</p>
+          <p>:</p>
+          <p>{boardIds.length}</p>
+        </div>
         <Link
           to={"/"}
-          className="py-1 px-2 border-white text-white border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards text-center"
+          className="py-1 px-2 border-white text-white border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards text-center w-32"
         >
           Return Back
         </Link>
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-2 w-32">
+            <div className="size-6 rounded-full relative animate-drop_down bg-red flex items-center justify-center">
+              <div className="size-4 rounded-full absolute shadow-inner bg-red"></div>
+            </div>
+            <p>:</p>
+            <p>{playerOneCount}</p>
+          </div>
+          <div className="flex gap-2">
+            <div className="size-6 rounded-full relative animate-drop_down bg-yellow flex items-center justify-center">
+              <div className="size-4 rounded-full absolute shadow-inner bg-yellow"></div>
+            </div>
+            <p>:</p>
+            <p>{playerTwoCount}</p>
+          </div>
+        </div>
       </div>
       <div className="flex flex-col gap-6">
         {boardIds.map((id, index) => {

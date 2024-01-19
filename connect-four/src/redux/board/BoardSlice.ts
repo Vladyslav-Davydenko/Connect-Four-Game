@@ -3,6 +3,7 @@ import {
   SerializedError,
   createAsyncThunk,
   createEntityAdapter,
+  createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
 
@@ -110,5 +111,9 @@ export const {
 
 export const selectStatus = (rootState: RootState) => rootState.boards.status;
 export const selectError = (rootState: RootState) => rootState.boards.error;
+export const selectTotalCountPlayerWin = createSelector(
+  [selectAllBoards, (_, player) => player],
+  (boards, player) => boards.filter((board) => board.winner === player).length
+);
 
 export const { refreshStatus } = boardSlice.actions;
