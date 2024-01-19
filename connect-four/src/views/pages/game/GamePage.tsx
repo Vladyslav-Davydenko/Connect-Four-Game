@@ -20,20 +20,37 @@ import Board from "../../components/board/Board";
 
 import { Link } from "react-router-dom";
 
+const LOCAL_STORAGE_KEY = "vilsivul_connect_four";
+
 export function GamePage(): JSX.Element {
-  const [board, setBoard] = useState<BoardType[][]>([
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-  ]);
-  const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">("X");
+  const [board, setBoard] = useState<BoardType[][]>(() => {
+    const localBoard = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (localBoard) return JSON.parse(localBoard);
+    else {
+      return [
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+        ["", "", "", "", "", "", ""],
+      ];
+    }
+  });
+
+  const getCurrentPlayer = () => (playerOneCount > playerTwoCount ? "O" : "X");
+
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [playerOneCount, setPlayerOneCount] = useState<number>(0);
-  const [playerTwoCount, setPlayerTwoCount] = useState<number>(0);
+  let playerOneCount = board.reduce(
+    (count, row) => count + row.filter((ch) => ch === "X").length,
+    0
+  );
+  let playerTwoCount = board.reduce(
+    (count, row) => count + row.filter((ch) => ch === "O").length,
+    0
+  );
+  let currentPlayer: "X" | "O" = getCurrentPlayer();
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const status = useAppSelector(selectStatus);
@@ -47,6 +64,10 @@ export function GamePage(): JSX.Element {
     idle: "Save the game",
     succeeded: "Saved",
   };
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(board));
+  }, [board]);
 
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
@@ -109,9 +130,8 @@ export function GamePage(): JSX.Element {
       ["", "", "", "", "", "", ""],
       ["", "", "", "", "", "", ""],
     ]);
-    setCurrentPlayer("X");
-    setPlayerOneCount(0);
-    setPlayerTwoCount(0);
+    playerOneCount = 0;
+    playerTwoCount = 0;
   };
 
   const updateBoard = (x: number, y: number, ch: "X" | "O") => {
@@ -120,9 +140,6 @@ export function GamePage(): JSX.Element {
       boardCopy[y][x] = ch;
       return boardCopy;
     });
-    if (currentPlayer === "X") setPlayerOneCount((prev) => (prev += 1));
-    if (currentPlayer === "O") setPlayerTwoCount((prev) => (prev += 1));
-    setCurrentPlayer(ch === "X" ? "O" : "X");
     return;
   };
 
@@ -154,7 +171,7 @@ export function GamePage(): JSX.Element {
   return (
     <>
       {isOpen && (
-        <div className="absolute bg-black bg-opacity-40 h-dvh w-full z-10 flex justify-center items-center animate-bg_fade_in">
+        <div className="absolute bg-black bg-opacity-40 min-h-dvh w-full z-10 flex justify-center items-center animate-bg_fade_in">
           <div className=" bg-blue p-10 rounded-xl shadow-lg absolute z-20 opacity-0 animate-appear_3 fill-mode-forwards flex flex-col justify-center items-center gap-10">
             <h1 className="text-yellow text-4xl">Congratulation!</h1>
             {error ? (
