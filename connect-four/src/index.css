@@ -13,3 +13,17 @@
 .cls-1 {
   stroke-linecap: square;
 }
+
+.spinner {
+  animation: rotator 1.4s linear infinite;
+  margin-block: 3rem;
+}
+
+@keyframes rotator {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}

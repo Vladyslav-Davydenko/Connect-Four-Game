@@ -1,12 +1,16 @@
 import { useAppSelector } from "../../../redux/hooks";
 
 import { selectBoardIDs } from "../../../redux/board/BoardSlice";
+import { selectStatus } from "../../../redux/board/BoardSlice";
 
 import SingleUnit from "../../components/dashboard/SingleUnit";
 import { Link } from "react-router-dom";
 
+import Loader from "../../components/loader/Loader";
+
 export function DashBoardPage(): JSX.Element {
   const boardIds = useAppSelector(selectBoardIDs);
+  const status = useAppSelector(selectStatus);
 
   return (
     <div className="flex flex-col gap-6 w-[70%] justify-center items-center m-10">
@@ -14,6 +18,8 @@ export function DashBoardPage(): JSX.Element {
         Dash Board
       </h1>
       {!boardIds.length && <p>No data has been saved yet</p>}
+      {status === "loading" && <Loader />}
+      {}
       <div className="flex justify-between mb-5 items-center">
         <Link
           to={"/"}

@@ -185,15 +185,15 @@ export function GamePage(): JSX.Element {
         </div>
       )}
       <div className="flex gap-8 justify-center items-center">
-        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative">
-          <div className=" absolute left-1/2 transform -translate-x-1/2 -translate-y-8">
+        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative flex justify-center items-center">
+          <div className=" absolute -top-7">
             <div className="size-16 rounded-full relative animate-drop_down bg-red flex items-center justify-center shadow-lg">
               <div className="size-12 rounded-full absolute shadow-inner bg-red"></div>
             </div>
-            <div className="text-center">
-              <h1 className="text-dark-blue text-xl mt-2">Player 1</h1>
-              <p className="text-dark-blue text-4xl mt-4">{playerOneCount}</p>
-            </div>
+          </div>
+          <div className="text-center">
+            <h1 className="text-dark-blue text-xl mt-2">Player 1</h1>
+            <p className="text-dark-blue text-4xl mt-4">{playerOneCount}</p>
           </div>
         </div>
         <div className="flex flex-col gap-6 text-center">
@@ -222,15 +222,15 @@ export function GamePage(): JSX.Element {
             </div>
           </div>
         </div>
-        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative">
-          <div className=" absolute left-1/2 transform -translate-x-1/2 -translate-y-8">
+        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative flex justify-center items-center">
+          <div className=" absolute -top-7">
             <div className="size-16 rounded-full relative animate-drop_down bg-yellow flex items-center justify-center shadow-lg">
               <div className="size-12 rounded-full absolute shadow-inner bg-yellow"></div>
             </div>
-            <div className="text-center">
-              <h1 className="text-dark-blue text-xl mt-2">Player 2</h1>
-              <p className="text-dark-blue text-4xl mt-4">{playerTwoCount}</p>
-            </div>
+          </div>
+          <div className="text-center">
+            <h1 className="text-dark-blue text-xl mt-2">Player 2</h1>
+            <p className="text-dark-blue text-4xl mt-4">{playerTwoCount}</p>
           </div>
         </div>
       </div>
