@@ -1,12 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useAppDispatch } from "../../../redux/hooks";
-import { useAppSelector } from "../../../redux/hooks";
-
-import { Status } from "../../../types/domain";
-
-import { selectStatus } from "../../../redux/board/BoardSlice";
-import { selectError } from "../../../redux/board/BoardSlice";
 
 import { addBoard } from "../../../redux/board/BoardSlice";
 import { refreshStatus } from "../../../redux/board/BoardSlice";
@@ -17,6 +11,8 @@ import { Connect4Game } from "../../../types/domain/board.model";
 import Icon from "../../components/icon/Icon";
 
 import Board from "../../components/board/Board";
+import PopUpCongratulation from "../../components/pop-up-windows/Congratulation";
+import PlayersScore from "../../components/board/PlayersScore";
 
 import { Link } from "react-router-dom";
 
@@ -37,11 +33,9 @@ export function GamePage(): JSX.Element {
       ];
     }
   });
-
-  const getCurrentPlayer = () => (playerOneCount > playerTwoCount ? "O" : "X");
-
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   let playerOneCount = board.reduce(
     (count, row) => count + row.filter((ch) => ch === "X").length,
     0
@@ -50,20 +44,10 @@ export function GamePage(): JSX.Element {
     (count, row) => count + row.filter((ch) => ch === "O").length,
     0
   );
-  let currentPlayer: "X" | "O" = getCurrentPlayer();
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  const status = useAppSelector(selectStatus);
-  const error = useAppSelector(selectError);
+  let currentPlayer: "X" | "O" = playerOneCount > playerTwoCount ? "O" : "X";
+
   const dispatch = useAppDispatch();
-
-  type ButtonNamingType<T extends Status> = { [K in T]?: string };
-
-  const buttonNaming: ButtonNamingType<Status> = {
-    loading: "Saving...",
-    idle: "Save the game",
-    succeeded: "Saved",
-  };
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(board));
@@ -171,48 +155,14 @@ export function GamePage(): JSX.Element {
   return (
     <>
       {isOpen && (
-        <div className="absolute bg-black bg-opacity-40 min-h-dvh w-full z-10 flex justify-center items-center animate-bg_fade_in">
-          <div className=" bg-blue p-10 rounded-xl shadow-lg absolute z-20 opacity-0 animate-appear_3 fill-mode-forwards flex flex-col justify-center items-center gap-10">
-            <h1 className="text-yellow text-4xl">Congratulation!</h1>
-            {error ? (
-              <h2 className="text-yellow text-2xl">{error.message}</h2>
-            ) : (
-              <h2 className="text-yellow text-2xl">{`Player ${
-                currentPlayer === "X" ? "2" : "1"
-              } win the game`}</h2>
-            )}
-            <div>
-              <button
-                className="py-3 px-6 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"
-                onClick={() => setIsOpen(false)}
-              >
-                Close the window
-              </button>
-              <button
-                id="save-button"
-                className="py-3 px-6 mx-16 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards disabled:opacity-75"
-                onClick={handleSaveGame}
-                ref={buttonRef}
-                disabled={status !== "idle"}
-              >
-                {buttonNaming[status]}
-              </button>
-            </div>
-          </div>
-        </div>
+        <PopUpCongratulation
+          handleSaveGame={handleSaveGame}
+          setIsOpen={setIsOpen}
+          winner={currentPlayer === "X" ? "2" : "1"}
+        />
       )}
       <div className="flex gap-8 justify-center items-center">
-        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative flex justify-center items-center">
-          <div className=" absolute -top-7">
-            <div className="size-16 rounded-full relative animate-drop_down bg-red flex items-center justify-center shadow-lg">
-              <div className="size-12 rounded-full absolute shadow-inner bg-red"></div>
-            </div>
-          </div>
-          <div className="text-center">
-            <h1 className="text-dark-blue text-xl mt-2">Player 1</h1>
-            <p className="text-dark-blue text-4xl mt-4">{playerOneCount}</p>
-          </div>
-        </div>
+        <PlayersScore player="X" playersCont={playerOneCount} />
         <div className="flex flex-col gap-6 text-center">
           <div className="flex justify-between mb-5 items-center">
             <Link
@@ -239,17 +189,7 @@ export function GamePage(): JSX.Element {
             </div>
           </div>
         </div>
-        <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative flex justify-center items-center">
-          <div className=" absolute -top-7">
-            <div className="size-16 rounded-full relative animate-drop_down bg-yellow flex items-center justify-center shadow-lg">
-              <div className="size-12 rounded-full absolute shadow-inner bg-yellow"></div>
-            </div>
-          </div>
-          <div className="text-center">
-            <h1 className="text-dark-blue text-xl mt-2">Player 2</h1>
-            <p className="text-dark-blue text-4xl mt-4">{playerTwoCount}</p>
-          </div>
-        </div>
+        <PlayersScore player="O" playersCont={playerTwoCount} />
       </div>
     </>
   );
