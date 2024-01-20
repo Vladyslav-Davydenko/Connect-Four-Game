@@ -32,7 +32,7 @@ export default function SingleUnit({ id, index }: Props): JSX.Element {
   };
 
   return (
-    <div className="flex justify-center items-center gap-12 py-8 px-16 border border-white rounded-lg relative">
+    <div className="flex justify-center items-center gap-12 py-8 px-16 shadow-lg rounded-lg relative">
       <button
         className="p-3 rounded-full absolute top-2 right-2 cursor-pointer opacity-80 hover:opacity-100 hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md"
         onClick={hanndleDeleteData}
