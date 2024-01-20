@@ -20,6 +20,8 @@ The idea of this project is to implement connect-four game using react for logic
 
 ## Add timer
 
+## Sound effects
+
 # Difficult tasks
 
 ## Implement multiplayer
