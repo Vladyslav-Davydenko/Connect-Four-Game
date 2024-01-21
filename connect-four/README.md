@@ -4,8 +4,6 @@ The idea of this project is to implement connect-four game using react for logic
 
 # TODO
 
-## Implement pop up ask question when delete
-
 ## Implement functionality of draw round
 
 ## Optimise for phones
@@ -21,6 +19,8 @@ The idea of this project is to implement connect-four game using react for logic
 ## Add timer
 
 ## Sound effects
+
+## Filter dashboard based on date it was created
 
 # Difficult tasks
 
