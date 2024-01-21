@@ -53,50 +53,35 @@ export function GamePage(): JSX.Element {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(board));
   }, [board]);
 
+  const checkWinner = (
+    row: number,
+    col: number,
+    rowStep: number,
+    colStep: number
+  ) => {
+    const player = board[row][col];
+
+    // formula to check all possible winnig conditions
+    if (
+      player !== "" &&
+      player === board[row + rowStep][col + colStep] &&
+      player === board[row + 2 * rowStep][col + 2 * colStep] &&
+      player === board[row + 3 * rowStep][col + 3 * colStep]
+    ) {
+      dispatch(refreshStatus());
+      setGameOver(true);
+      setIsOpen(true);
+    }
+  };
+
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board.length + 1; j++) {
         try {
-          if (
-            board[i][j] !== "" &&
-            board[i][j] === board[i][j + 1] &&
-            board[i][j] === board[i][j + 2] &&
-            board[i][j] === board[i][j + 3]
-          ) {
-            dispatch(refreshStatus());
-            setGameOver(true);
-            setIsOpen(true);
-          }
-          if (
-            board[i][j] !== "" &&
-            board[i][j] === board[i + 1][j] &&
-            board[i][j] === board[i + 2][j] &&
-            board[i][j] === board[i + 3][j]
-          ) {
-            dispatch(refreshStatus());
-            setGameOver(true);
-            setIsOpen(true);
-          }
-          if (
-            board[i][j] !== "" &&
-            board[i][j] === board[i + 1][j + 1] &&
-            board[i][j] === board[i + 2][j + 2] &&
-            board[i][j] === board[i + 3][j + 3]
-          ) {
-            dispatch(refreshStatus());
-            setGameOver(true);
-            setIsOpen(true);
-          }
-          if (
-            board[i][j] !== "" &&
-            board[i][j] === board[i + 1][j - 1] &&
-            board[i][j] === board[i + 2][j - 2] &&
-            board[i][j] === board[i + 3][j - 3]
-          ) {
-            dispatch(refreshStatus());
-            setGameOver(true);
-            setIsOpen(true);
-          }
+          checkWinner(i, j, 0, 1); // Check horizontal
+          checkWinner(i, j, 1, 0); // Check vertical
+          checkWinner(i, j, 1, 1); // Check diagonal \
+          checkWinner(i, j, 1, -1); // Check diagonal /
         } catch (e) {
           // Silent skip
         }
