@@ -1,4 +1,6 @@
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+
+import { fetchBoards } from "../../../redux/board/BoardSlice";
 
 import {
   selectBoardIDs,
@@ -10,16 +12,22 @@ import SingleUnit from "../../components/dashboard/SingleUnit";
 import { Link } from "react-router-dom";
 
 import Loader from "../../components/loader/Loader";
+import { useEffect } from "react";
 
 export function DashBoardPage(): JSX.Element {
   const boardIds = useAppSelector(selectBoardIDs);
   const status = useAppSelector(selectStatus);
+  const dispatch = useAppDispatch();
   const playerOneCount = useAppSelector((rootState) =>
     selectTotalCountPlayerWin(rootState, "X")
   );
   const playerTwoCount = useAppSelector((rootState) =>
     selectTotalCountPlayerWin(rootState, "O")
   );
+
+  useEffect(() => {
+    dispatch(fetchBoards());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col gap-6 w-[70%] justify-center items-center m-10">

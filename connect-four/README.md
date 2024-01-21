@@ -16,8 +16,6 @@ The idea of this project is to implement connect-four game using react for logic
 
 ## Cashing functionality (Optimisation)
 
-## Add timer
-
 ## Sound effects
 
 ## Filter dashboard based on date it was created

@@ -21,7 +21,7 @@ const LOCAL_STORAGE_KEY = "vilsivul_connect_four";
 export function GamePage(): JSX.Element {
   const [board, setBoard] = useState<BoardType[][]>(() => {
     const localBoard = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (localBoard) return JSON.parse(localBoard);
+    if (localBoard) return JSON.parse(localBoard).board;
     else {
       return [
         ["", "", "", "", "", "", ""],
@@ -33,8 +33,14 @@ export function GamePage(): JSX.Element {
       ];
     }
   });
+  const [currentPlayer, setCurrentPlayer] = useState<"X" | "O">(() => {
+    const localBoard = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (localBoard) return JSON.parse(localBoard).currentPlayer;
+    return "X";
+  });
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [timeLeft, setTimeLeft] = useState<number>(30);
 
   let playerOneCount = board.reduce(
     (count, row) => count + row.filter((ch) => ch === "X").length,
@@ -45,13 +51,46 @@ export function GamePage(): JSX.Element {
     0
   );
 
-  let currentPlayer: "X" | "O" = playerOneCount > playerTwoCount ? "O" : "X";
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(board));
+    const preparedData = {
+      board,
+      currentPlayer,
+      playerOneCount,
+      playerTwoCount,
+    };
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(preparedData));
+  });
+
+  useEffect(() => {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board.length + 1; j++) {
+        try {
+          checkWinner(i, j, 0, 1); // Check horizontal
+          checkWinner(i, j, 1, 0); // Check vertical
+          checkWinner(i, j, 1, 1); // Check diagonal \
+          checkWinner(i, j, 1, -1); // Check diagonal /
+        } catch (e) {
+          // Silent skip
+        }
+      }
+    }
   }, [board]);
+
+  useEffect(() => {
+    if (gameOver) return;
+    const timer = setTimeout(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    if (timeLeft < 0) {
+      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
+    }
+    return () => clearTimeout(timer);
+  }, [timeLeft]);
+
+  useEffect(() => setTimeLeft(30), [currentPlayer]);
 
   const checkWinner = (
     row: number,
@@ -74,21 +113,6 @@ export function GamePage(): JSX.Element {
     }
   };
 
-  useEffect(() => {
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board.length + 1; j++) {
-        try {
-          checkWinner(i, j, 0, 1); // Check horizontal
-          checkWinner(i, j, 1, 0); // Check vertical
-          checkWinner(i, j, 1, 1); // Check diagonal \
-          checkWinner(i, j, 1, -1); // Check diagonal /
-        } catch (e) {
-          // Silent skip
-        }
-      }
-    }
-  }, [board]);
-
   const handleRestartGame = () => {
     setGameOver(false);
     setBoard([
@@ -101,6 +125,7 @@ export function GamePage(): JSX.Element {
     ]);
     playerOneCount = 0;
     playerTwoCount = 0;
+    setCurrentPlayer("X");
   };
 
   const updateBoard = (x: number, y: number, ch: "X" | "O") => {
@@ -109,6 +134,7 @@ export function GamePage(): JSX.Element {
       boardCopy[y][x] = ch;
       return boardCopy;
     });
+    setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     return;
   };
 
@@ -168,9 +194,10 @@ export function GamePage(): JSX.Element {
           <div className="flex justify-center items-center">
             <div className=" h-28 w-28 bg-red rounded-lg shadow-xl flex items-center border-black border-2 flex-col relative">
               <div className=" h-[5.2rem] w-[5.2rem] bg-red rounded-lg flex items-center border-black border-2 rotate-45 -top-9 absolute border-b-0 border-r-0"></div>
-              <h1 className="text-yellow text-xl z-10 mt-4">{`Player ${
+              <p className="text-yellow text-xl z-10 mt-4">{`Player ${
                 currentPlayer === "X" ? "1" : "2"
-              } is moving`}</h1>
+              } is moving`}</p>
+              <p className="text-yellow text-xl py-1">{`${timeLeft}s`}</p>
             </div>
           </div>
         </div>
