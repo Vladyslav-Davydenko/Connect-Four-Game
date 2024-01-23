@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 
-import { Layout } from "./views/layouts/Layout";
+import { Layout } from "@/views/layouts/Layout";
 
-import { StartGamePage } from "./views/pages/start-game";
-import { DashBoardPage } from "./views/pages/dashboard";
-import { GamePage } from "./views/pages/game";
-import { InfoPage } from "./views/pages/info";
-import { Error404Page } from "./views/pages/error";
+import { StartGamePage } from "@/views/pages/start-game";
+import { DashBoardPage } from "@/views/pages/dashboard";
+import { GamePage } from "@/views/pages/game";
+import { InfoPage } from "@/views/pages/info";
+import { Error404Page } from "@/views/pages/error";
 
-import { GAME_ROUTE, INFO_ROUTE, DASHBOARD_ROUTE } from "./routes";
+import { GAME_ROUTE, INFO_ROUTE, DASHBOARD_ROUTE } from "@/routes";
 
 function App() {
   return (

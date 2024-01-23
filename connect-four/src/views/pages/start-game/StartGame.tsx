@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { GAME_ROUTE, INFO_ROUTE, DASHBOARD_ROUTE } from "../../../routes";
+import { GAME_ROUTE, INFO_ROUTE, DASHBOARD_ROUTE } from "@/routes";
 
 export function StartGamePage(): JSX.Element {
   return (

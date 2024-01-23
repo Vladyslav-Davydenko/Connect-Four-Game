@@ -1,14 +1,13 @@
 import { formatDistanceToNow, parseISO } from "date-fns";
 
-import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 
-import { refreshStatus } from "../../../redux/board/BoardSlice";
+import { refreshStatus, selectBoardByID } from "@/redux/board/BoardSlice";
 
-import { selectBoardByID } from "../../../redux/board/BoardSlice";
-import { RootState } from "../../../redux/store";
+import { RootState } from "@/redux/store";
 
-import DeletePopUp from "../pop-up-windows/Delete";
-import SingleSlot from "./SingleSlot";
+import { DeletePopUp } from "@/views/components/pop-up-windows";
+import { SingleSlot } from "./SingleSlot";
 import { useState } from "react";
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
   index: number;
 }
 
-export default function SingleUnit({ id, index }: Props): JSX.Element {
+export function SingleUnit({ id, index }: Props): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();

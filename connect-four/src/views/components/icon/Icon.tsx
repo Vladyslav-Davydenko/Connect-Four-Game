@@ -1,4 +1,4 @@
-export default function Icon(): JSX.Element {
+export function Icon(): JSX.Element {
   return (
     <div className=" grid grid-cols-2 gap-1">
       <div className="size-6 rounded-full relative animate-drop_down bg-yellow flex items-center justify-center">

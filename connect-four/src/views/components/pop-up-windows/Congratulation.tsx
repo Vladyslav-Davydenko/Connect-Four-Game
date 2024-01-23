@@ -1,8 +1,8 @@
-import { useAppSelector } from "../../../redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 
-import { selectError, selectStatus } from "../../../redux/board/BoardSlice";
+import { selectError, selectStatus } from "@/redux/board/BoardSlice";
 
-import { Status } from "../../../types/domain";
+import { Status } from "@/types/domain";
 
 interface Props {
   winner: string;
@@ -10,7 +10,7 @@ interface Props {
   handleSaveGame: () => void;
 }
 
-export default function PopUpCongratulation({
+export function PopUpCongratulation({
   winner,
   handleSaveGame,
   setIsOpen,

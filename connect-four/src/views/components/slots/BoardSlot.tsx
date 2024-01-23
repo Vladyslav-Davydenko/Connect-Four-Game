@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { BoardType } from "../../../types/board/board.type";
+import { BoardType } from "@/types/board/board.type";
 
 type Props = {
   x: number;
@@ -9,12 +9,7 @@ type Props = {
   onClickCallback: (x: number, y: number) => void;
 };
 
-export default function BoardSlot({
-  x,
-  y,
-  ch,
-  onClickCallback,
-}: Props): JSX.Element {
+export function BoardSlot({ x, y, ch, onClickCallback }: Props): JSX.Element {
   const outerClasses = clsx({
     "size-16 rounded-full relative animate-drop_down": ch !== "",
     "bg-red": ch === "X",

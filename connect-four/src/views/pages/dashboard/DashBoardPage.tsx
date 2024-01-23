@@ -1,17 +1,17 @@
-import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
+import { Link } from "react-router-dom";
 
-import { fetchBoards } from "../../../redux/board/BoardSlice";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 
 import {
+  fetchBoards,
   selectBoardIDs,
   selectStatus,
   selectTotalCountPlayerWin,
-} from "../../../redux/board/BoardSlice";
+} from "@/redux/board/BoardSlice";
 
-import SingleUnit from "../../components/dashboard/SingleUnit";
-import { Link } from "react-router-dom";
+import { SingleUnit } from "@/views/components/dashboard";
 
-import Loader from "../../components/loader/Loader";
+import { Loader } from "@/views/components/loader";
 import { useEffect } from "react";
 
 export function DashBoardPage(): JSX.Element {

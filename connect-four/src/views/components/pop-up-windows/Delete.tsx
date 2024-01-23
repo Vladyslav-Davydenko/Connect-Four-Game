@@ -1,20 +1,20 @@
-import { useAppSelector } from "../../../redux/hooks";
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 
 import {
   selectError,
   selectStatus,
   deleteBoard,
-} from "../../../redux/board/BoardSlice";
+} from "@/redux/board/BoardSlice";
 
-import { Status } from "../../../types/domain";
+import { Status } from "@/types/domain";
 
 interface Props {
   id: string;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function DeletePopUp({ id, setIsOpen }: Props): JSX.Element {
+export function DeletePopUp({ id, setIsOpen }: Props): JSX.Element {
   const error = useAppSelector(selectError);
   const status = useAppSelector(selectStatus);
 

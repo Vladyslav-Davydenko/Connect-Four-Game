@@ -1,12 +1,12 @@
 import clsx from "clsx";
 
-import { BoardType } from "../../../types/board/board.type";
+import { BoardType } from "@/types/board/board.type";
 
 type Props = {
   ch: BoardType;
 };
 
-export default function SingleSlot({ ch }: Props): JSX.Element {
+export function SingleSlot({ ch }: Props): JSX.Element {
   const outerClasses = clsx({
     "size-8 rounded-full relative animate-drop_down flex items-center justify-center":
       ch !== "",

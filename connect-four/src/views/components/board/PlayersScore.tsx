@@ -3,10 +3,7 @@ interface Props {
   player: "X" | "O";
 }
 
-export default function PlayersScore({
-  playersCont,
-  player,
-}: Props): JSX.Element {
+export function PlayersScore({ playersCont, player }: Props): JSX.Element {
   return (
     <div className=" h-48 w-48 bg-white rounded-lg border-black border-2 shadow-xl relative flex justify-center items-center">
       <div className=" absolute -top-7">

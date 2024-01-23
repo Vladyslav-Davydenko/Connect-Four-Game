@@ -8,17 +8,11 @@ The idea of this project is to implement connect-four game using react for logic
 
 ## Optimise for phones
 
-## Code cleaning
-
 ## Theme color change
 
-## Styling adjustments
-
-## Cashing functionality (Optimisation)
+## Optimisation
 
 ## Sound effects
-
-## Filter dashboard based on date it was created
 
 # Difficult tasks
 

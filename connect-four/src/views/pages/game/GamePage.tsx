@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
 
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 
-import { addBoard } from "../../../redux/board/BoardSlice";
-import { refreshStatus } from "../../../redux/board/BoardSlice";
+import { addBoard, refreshStatus } from "@/redux/board/BoardSlice";
 
-import { BoardType } from "../../../types/board/board.type";
-import { Connect4Game } from "../../../types/domain/board.model";
+import { BoardType } from "@/types/board/board.type";
+import { Connect4Game } from "@/types/domain";
 
-import Icon from "../../components/icon/Icon";
+import { Icon } from "@/views/components/icon";
 
-import Board from "../../components/board/Board";
-import PopUpCongratulation from "../../components/pop-up-windows/Congratulation";
-import PlayersScore from "../../components/board/PlayersScore";
+import { Board } from "@/views/components/board";
+import { PopUpCongratulation } from "@/views/components/pop-up-windows";
+import { PlayersScore } from "@/views/components/board";
 
 import { Link } from "react-router-dom";
 

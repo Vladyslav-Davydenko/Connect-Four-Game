@@ -1,4 +1,4 @@
-export default function Loader() {
+export function Loader() {
   return (
     <svg
       width="64px"
