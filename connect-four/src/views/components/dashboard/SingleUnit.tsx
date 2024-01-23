@@ -1,3 +1,5 @@
+import { formatDistanceToNow, parseISO } from "date-fns";
+
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 
 import { refreshStatus } from "../../../redux/board/BoardSlice";
@@ -22,6 +24,8 @@ export default function SingleUnit({ id, index }: Props): JSX.Element {
   const game = useAppSelector((rootState: RootState) =>
     selectBoardByID(rootState, id)
   );
+  const timestape = parseISO(game.createdDate);
+  const timeAgo = formatDistanceToNow(timestape);
 
   const handleDeleteButtonClicked = () => {
     dispatch(refreshStatus());
@@ -90,6 +94,7 @@ export default function SingleUnit({ id, index }: Props): JSX.Element {
             <p className="text-dark-blue text-4xl mt-4">Win</p>
           </div>
         </div>
+        <p className=" self-end">{`${timeAgo} ago`} </p>
       </div>
     </>
   );
