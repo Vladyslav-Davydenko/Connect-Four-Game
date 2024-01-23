@@ -150,7 +150,7 @@ export function GamePage(): JSX.Element {
   };
 
   const handleSaveGame = async () => {
-    const preparedData: Omit<Connect4Game, "id"> = {
+    const preparedData: Omit<Connect4Game, "id" | "createdDate"> = {
       board,
       winner: currentPlayer === "X" ? "O" : "X",
       player1Score: playerOneCount,

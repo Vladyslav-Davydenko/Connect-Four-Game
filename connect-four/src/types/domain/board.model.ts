@@ -6,4 +6,5 @@ export type Connect4Game = {
   winner: string | null;
   player1Score: number;
   player2Score: number;
+  createdDate: string;
 };

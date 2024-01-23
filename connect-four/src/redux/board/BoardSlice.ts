@@ -22,7 +22,10 @@ type InitialBoardState = EntityState<Connect4Game, string> & {
   error: SerializedError | null;
 };
 
-const boardAdapter = createEntityAdapter<Connect4Game>();
+const boardAdapter = createEntityAdapter<Connect4Game>({
+  sortComparer: (a: Connect4Game, b: Connect4Game) =>
+    b.createdDate.localeCompare(a.createdDate),
+});
 
 const initialState: InitialBoardState = boardAdapter.getInitialState({
   status: "idle",
@@ -48,7 +51,11 @@ export const addBoard = createAsyncThunk<
   { rejectValue: SerializedError }
 >("boards/addBoard", async (createdData, thunkAPI): Promise<Connect4Game> => {
   try {
-    const nedData = { ...createdData, id: uuidv4() };
+    const nedData = {
+      ...createdData,
+      id: uuidv4(),
+      createdDate: new Date().toISOString(),
+    };
     const responce = await boardService.createNewData(nedData);
     return responce.data;
   } catch (error) {

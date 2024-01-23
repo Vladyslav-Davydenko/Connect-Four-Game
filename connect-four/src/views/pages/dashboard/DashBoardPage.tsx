@@ -34,8 +34,6 @@ export function DashBoardPage(): JSX.Element {
       <h1 className="text-yellow text-7xl mb-20 animate-wiggle text-cente">
         Dash Board
       </h1>
-      {!boardIds.length && <p>No data has been saved yet</p>}
-      {status === "loading" && <Loader />}
       <div className="flex justify-center mb-5 items-center gap-24 w-full">
         <div className="flex gap-2 w-32">
           <p>Total games</p>
@@ -65,7 +63,9 @@ export function DashBoardPage(): JSX.Element {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 items-center">
+        {!boardIds.length && <p>No data has been saved yet</p>}
+        {status === "loading" && <Loader />}
         {boardIds.map((id, index) => {
           return <SingleUnit id={id} key={id} index={index + 1} />;
         })}
