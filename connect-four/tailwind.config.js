@@ -11,6 +11,16 @@ export default {
         white: "#f5e8c7",
         yellow: "#FF9800",
         red: "#B80000",
+        "dark-green": "#092635",
+        green: "#1B4242",
+        "light-green": "#9EC8B9",
+        "dark-brown": "#6B240C",
+        brown: "#994D1C",
+        "light-brown": "#F5CCA0",
+        "dark-violet": "#3C0753",
+        violet: "#720455",
+        "light-violet": "#910A67",
+        "super-dark-violet": "#030637",
       },
       keyframes: {
         wiggle: {
