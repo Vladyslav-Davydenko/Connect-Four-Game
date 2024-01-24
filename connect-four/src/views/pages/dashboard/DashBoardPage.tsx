@@ -30,7 +30,7 @@ export function DashBoardPage(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-6 w-[70%] justify-center items-center m-10">
+    <div className="flex flex-col gap-6 w-[70%] justify-center items-center m-10 mb-56">
       <h1 className="text-yellow text-7xl mb-20 animate-wiggle text-cente">
         Dash Board
       </h1>

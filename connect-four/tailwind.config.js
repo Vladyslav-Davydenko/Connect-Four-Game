@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "dark-blue": "#363062",
+        "super-dark-blue": "#27224b",
         blue: "#435585",
         "light-blue": "#818fb4",
         white: "#f5e8c7",
@@ -49,6 +50,9 @@ export default {
         appear_right_2: "appear_right 1s ease-in-out 1s",
         drop_down: "drop_down 700ms ease-in-out",
         bg_fade_in: "bg_fade_in 700ms ease-in-out",
+      },
+      boxShadow: {
+        "inner-slot": "0px 22px 46px -8px rgba(0,0,0,0.55) inset",
       },
     },
   },

@@ -23,7 +23,7 @@ export function BoardSlot({ x, y, ch, onClickCallback }: Props): JSX.Element {
 
   return (
     <div onClick={() => onClickCallback(x, y)}>
-      <div className="size-16 rounded-full bg-dark-blue animate-bg_fade_in">
+      <div className="size-16 rounded-full bg-dark-blue animate-bg_fade_in shadow-inner-slot">
         <div className={outerClasses}>
           <div className={innerClasses}></div>
         </div>
