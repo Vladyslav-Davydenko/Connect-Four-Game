@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Error404Page(): JSX.Element {
   return (
     <div className="text-center">
@@ -20,9 +22,9 @@ export function Error404Page(): JSX.Element {
       </div>
       <p className="mt-4 text-white">
         Let's get you back{" "}
-        <a href="/" className=" text-light-blue underline">
+        <Link to="/" className=" text-light-primary underline">
           home
-        </a>
+        </Link>
       </p>
     </div>
   );

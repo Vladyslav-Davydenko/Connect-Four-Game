@@ -2,6 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --dark-primary-color: #363062;
+  --super-dark-primary-color: #27224b;
+  --primary-color: #435585;
+  --light-primary-color: #818fb4;
+}
+
+.theme-green {
+  --dark-primary-color: #092635;
+  --super-dark-primary-color: #021c29;
+  --primary-color: #1b4242;
+  --light-primary-color: #9ec8b9;
+}
+
+.theme-brown {
+  --dark-primary-color: #6b240c;
+  --super-dark-primary-color: #4f1603;
+  --primary-color: #994d1c;
+  --light-primary-color: #f5cca0;
+}
+
+.theme-pink {
+  --dark-primary-color: #35092d;
+  --super-dark-primary-color: #290220;
+  --primary-color: #421b38;
+  --light-primary-color: #c89eb8;
+}
+
+.theme-red {
+  --dark-primary-color: rgb(107, 12, 12);
+  --super-dark-primary-color: #3f0404;
+  --primary-color: #421b1b;
+  --light-primary-color: #c89e9e;
+}
+
 .cls-1,
 .cls-2 {
   fill: none;

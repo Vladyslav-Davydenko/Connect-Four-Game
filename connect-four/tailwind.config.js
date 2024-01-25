@@ -4,23 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        "dark-blue": "#363062",
-        "super-dark-blue": "#27224b",
-        blue: "#435585",
-        "light-blue": "#818fb4",
+        "dark-primary": "var(--dark-primary-color)",
+        "super-dark-primary": "var(--super-dark-primary-color)",
+        "light-primary": "var(--light-primary-color)",
+        primary: "var(--primary-color)",
         white: "#f5e8c7",
         yellow: "#FF9800",
         red: "#B80000",
-        "dark-green": "#092635",
-        green: "#1B4242",
-        "light-green": "#9EC8B9",
-        "dark-brown": "#6B240C",
-        brown: "#994D1C",
-        "light-brown": "#F5CCA0",
-        "dark-violet": "#3C0753",
-        violet: "#720455",
-        "light-violet": "#910A67",
-        "super-dark-violet": "#030637",
       },
       keyframes: {
         wiggle: {

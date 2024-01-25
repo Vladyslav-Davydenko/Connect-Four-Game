@@ -85,7 +85,7 @@ export function InfoPage(): JSX.Element {
       </div>
       <div className="flex justify-end mt-10">
         <Link
-          className="py-3 px-6 bg-white text-blue border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_right_2 fill-mode-backwards transition-all"
+          className="py-3 px-6 bg-white text-primary border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_right_2 fill-mode-backwards transition-all"
           to={"/"}
         >
           Back

@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import { boardSlice } from "./board/BoardSlice";
+import { themeSlice } from "./theme/ThemeSlice";
 
 const store = configureStore({
   reducer: {
     [boardSlice.name]: boardSlice.reducer,
+    [themeSlice.name]: themeSlice.reducer,
   },
 });
 

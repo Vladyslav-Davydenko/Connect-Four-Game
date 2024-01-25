@@ -87,10 +87,10 @@ export function SingleUnit({ id, index }: Props): JSX.Element {
             </div>
           </div>
           <div className="text-center">
-            <h1 className="text-dark-blue text-xl mt-2">{`Player ${
+            <h1 className="text-dark-primary text-xl mt-2">{`Player ${
               game.winner === "X" ? "1" : "2"
             }`}</h1>
-            <p className="text-dark-blue text-4xl mt-4">Win</p>
+            <p className="text-dark-primary text-4xl mt-4">Win</p>
           </div>
         </div>
         <p className=" self-end">{`${timeAgo} ago`} </p>

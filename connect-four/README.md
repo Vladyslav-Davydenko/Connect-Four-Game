@@ -8,8 +8,6 @@ The idea of this project is to implement connect-four game using react for logic
 
 ## Optimise for phones
 
-## Theme color change
-
 ## Optimisation
 
 ## Sound effects

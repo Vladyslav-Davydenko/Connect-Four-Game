@@ -20,10 +20,10 @@ export function PlayersScore({ playersCont, player }: Props): JSX.Element {
         </div>
       </div>
       <div className="text-center">
-        <h1 className="text-dark-blue text-xl mt-2">
+        <h1 className="text-dark-primary text-xl mt-2">
           {player === "X" ? "Player 1" : "Player 2"}
         </h1>
-        <p className="text-dark-blue text-4xl mt-4">{playersCont}</p>
+        <p className="text-dark-primary text-4xl mt-4">{playersCont}</p>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export function SingleSlot({ ch }: Props): JSX.Element {
 
   return (
     <div>
-      <div className="size-8 rounded-full bg-dark-blue animate-bg_fade_in shadow-inner">
+      <div className="size-8 rounded-full bg-dark-primary animate-bg_fade_in shadow-inner">
         <div className={outerClasses}>
           <div className={innerClasses}></div>
         </div>
