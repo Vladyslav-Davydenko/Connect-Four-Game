@@ -4,10 +4,24 @@ import { GAME_ROUTE, INFO_ROUTE, DASHBOARD_ROUTE } from "@/routes";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { changeTheme } from "@/redux/theme/ThemeSlice";
 import { selectTheme } from "@/redux/theme/ThemeSlice";
+import { useEffect } from "react";
+
+const LOCAL_STORAGE_KEY = "vilsivul_connect_four";
 
 export function StartGamePage(): JSX.Element {
   const dispatch = useAppDispatch();
   const theme = useAppSelector(selectTheme);
+
+  useEffect(() => {
+    const game = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (game) {
+      const data = JSON.parse(game);
+      localStorage.setItem(
+        LOCAL_STORAGE_KEY,
+        JSON.stringify({ ...data, theme })
+      );
+    }
+  }, [theme]);
 
   return (
     <div className="flex-col">
@@ -43,7 +57,7 @@ export function StartGamePage(): JSX.Element {
           } hover:opacity-100 transition-all duration-300 cursor-pointer hover:-translate-y-[0.1rem] active:translate-y-[0.1rem]`}
         ></span>
       </div>
-      <h1 className=" text-yellow text-7xl mb-20 animate-wiggle">
+      <h1 className=" text-yellow text-7xl mb-20 animate-wiggle text-center">
         Connect Four
       </h1>
       <div className=" flex flex-col gap-5 text-center text-xl">

@@ -11,7 +11,7 @@ export function Layout(): JSX.Element {
     <div
       className={`min-h-screen bg-dark-primary text-white font-semibold flex justify-center items-center relative theme-${theme} transition-colors duration-500`}
     >
-      <div className="absolute bottom-0 left-0 right-0 h-[120px] bg-super-dark-primary rounded-t-[100px] transition-colors duration-500"></div>
+      <div className="h-[50px] absolute bottom-0 left-0 right-0 md:h-[100px] bg-super-dark-primary rounded-t-[100px] transition-colors duration-500"></div>
       <Outlet />
     </div>
   );

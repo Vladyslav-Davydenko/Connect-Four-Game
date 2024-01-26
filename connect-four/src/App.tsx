@@ -1,5 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 
+import { useEffect } from "react";
+
+import { useAppDispatch } from "./redux/hooks";
+import { changeTheme } from "./redux/theme/ThemeSlice";
+
 import { Layout } from "@/views/layouts/Layout";
 
 import { StartGamePage } from "@/views/pages/start-game";
@@ -10,7 +15,18 @@ import { Error404Page } from "@/views/pages/error";
 
 import { GAME_ROUTE, INFO_ROUTE, DASHBOARD_ROUTE } from "@/routes";
 
+const LOCAL_STORAGE_KEY = "vilsivul_connect_four";
+
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const game = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (game) {
+      const theme = JSON.parse(game).theme;
+      if (theme) dispatch(changeTheme(theme));
+    }
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

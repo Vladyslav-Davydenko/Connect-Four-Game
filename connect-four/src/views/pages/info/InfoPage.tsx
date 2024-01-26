@@ -2,27 +2,27 @@ import { Link } from "react-router-dom";
 
 export function InfoPage(): JSX.Element {
   return (
-    <div className="w-[50%] flex justify-center content-center flex-col">
+    <div className="w-[70%] flex justify-center content-center flex-col mb-20">
       <h1 className=" text-yellow text-7xl mb-20 animate-wiggle text-center">
         Some basic rules
       </h1>
       <div className="flex flex-col gap-20 text-lg my-5">
-        <div className="flex justify-between gap-5 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center gap-6">
           <div className=" size-16 bg-yellow rounded-full relative shadow-xl">
             <div className=" size-12 bg-yellow rounded-full absolute inset-2 shadow-inner"></div>
           </div>
-          <p className="w-[70%] animate-appear_left_1 transition-all duration-500 opacity-0 fill-mode-forwards">
+          <p className="animate-appear_left_1 transition-all duration-500 opacity-0 fill-mode-forwards col-span-2">
             Players choose yellow or red discs. They drop the discs into the
             grid, starting in the middle or at the edge to stack their colored
             discs upwards, horizontally, or diagonally.
           </p>
         </div>
-        <div className="flex justify-between gap-5 items-center">
-          <p className="w-[70%] animate-appear_right_1 transition-all duration-500 opacity-0 fill-mode-forwards">
+        <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center gap-6">
+          <p className="w-[90%] animate-appear_right_1 transition-all duration-500 opacity-0 fill-mode-forwards order-2 md:order-1 col-span-2">
             Use strategy to block opponents while aiming to be the first player
             to get 4 in a row to win.
           </p>
-          <div>
+          <div className="order-1 md:order-2">
             <svg
               width="64px"
               height="64px"
@@ -72,11 +72,11 @@ export function InfoPage(): JSX.Element {
             </svg>
           </div>
         </div>
-        <div className="flex justify-between gap-5 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center gap-6">
           <div className=" size-16 bg-red rounded-full relative shadow-xl">
             <div className=" size-12 bg-red rounded-full absolute inset-2 shadow-inner"></div>
           </div>
-          <p className="w-[70%] animate-appear_left_2 transition-all duration-500 opacity-0 fill-mode-forwards">
+          <p className="w-[90%] animate-appear_left_2 transition-all duration-500 opacity-0 fill-mode-forwards col-span-2">
             The Connect 4 game is a great choice for a play date, a rainy day
             activity, or anytime your kids want a fun game to play with a
             friend. It's fun to go 4 the win!
