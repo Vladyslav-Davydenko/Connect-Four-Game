@@ -8,7 +8,7 @@ interface Props {
 
 export function Board({ board, handleOnClick }: Props): JSX.Element {
   return (
-    <div className="grid grid-cols-7 gap-4 bg-white p-6 rounded-3xl shadow-xl  animate-bg_fade_in border-black border-2">
+    <div className="grid grid-cols-7 gap-4 bg-white p-4 md:p-6 rounded-3xl shadow-xl  animate-bg_fade_in border-black border-2">
       {board.map((row, i) =>
         row.map((ch, j) => {
           return (

@@ -34,7 +34,7 @@ export function SingleUnit({ id, index }: Props): JSX.Element {
   return (
     <>
       {isOpen && <DeletePopUp id={game.id} setIsOpen={setIsOpen} />}
-      <div className="flex justify-center items-center gap-12 py-8 px-16 shadow-lg rounded-lg relative">
+      <div className="flex justify-center items-center gap-12 md:py-8 md:px-16 py-2 shadow-lg rounded-lg relative flex-col md:flex-row">
         <button
           className="p-3 rounded-full absolute top-2 right-2 cursor-pointer opacity-80 hover:opacity-100 hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md"
           onClick={handleDeleteButtonClicked}
@@ -60,7 +60,7 @@ export function SingleUnit({ id, index }: Props): JSX.Element {
         </button>
         <p className="text-4xl">{`${index}.`}</p>
         <div>
-          <div className="grid grid-cols-7 gap-4 bg-white p-6 rounded-3xl shadow-xl  animate-bg_fade_in border-black border-2">
+          <div className="grid grid-cols-7 gap-4 bg-white p-4 md:p-6 rounded-3xl shadow-xl  animate-bg_fade_in border-black border-2">
             {game.board.map((row, i) =>
               row.map((ch, j) => {
                 return (

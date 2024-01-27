@@ -22,30 +22,30 @@ export function PopUpCongratulation({
 
   const buttonNaming: ButtonNamingType<Status> = {
     loading: "Saving...",
-    idle: "Save the game",
+    idle: "Save",
     succeeded: "Saved",
     failed: "Error",
   };
 
   return (
     <div className="absolute bg-black bg-opacity-40 min-h-dvh w-full z-10 flex justify-center items-center animate-bg_fade_in">
-      <div className=" bg-primary p-10 rounded-xl shadow-lg absolute z-20 opacity-0 animate-appear_3 fill-mode-forwards flex flex-col justify-center items-center gap-10">
-        <h1 className="text-yellow text-4xl">Congratulation!</h1>
+      <div className=" bg-primary md:p-10 p-6 rounded-xl shadow-lg absolute z-20 opacity-0 animate-appear_3 fill-mode-forwards flex flex-col justify-center items-center gap-10">
+        <h1 className="text-yellow text-2xl md:text-4xl">Congratulation!</h1>
         {error ? (
-          <h2 className="text-yellow text-2xl">{error.message}</h2>
+          <h2 className="text-yellow text-lg md:text-2xl">{error.message}</h2>
         ) : (
-          <h2 className="text-yellow text-2xl">{`Player ${winner} win the game`}</h2>
+          <h2 className="text-yellow text-lg md:text-2xl">{`Player ${winner} win the game`}</h2>
         )}
-        <div>
+        <div className="flex items-center gap-8">
           <button
-            className="py-3 px-6 mx-16 bg-white text-primary border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"
+            className="md:py-3 md:px-6 py-2 px-4 bg-white text-primary border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"
             onClick={() => setIsOpen(false)}
           >
-            Close the window
+            Close
           </button>
           <button
             id="save-button"
-            className="py-3 px-6 mx-16 bg-white text-primary border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards disabled:opacity-75"
+            className="md:py-3 md:px-6 py-2 px-4 bg-white text-primary border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards disabled:opacity-75"
             onClick={handleSaveGame}
             disabled={status !== "idle"}
           >

@@ -12,6 +12,7 @@ import { Icon } from "@/views/components/icon";
 import { Board } from "@/views/components/board";
 import { PopUpCongratulation } from "@/views/components/pop-up-windows";
 import { PlayersScore } from "@/views/components/board";
+import { PlayerScoreMobile } from "@/views/components/board";
 
 import { Link } from "react-router-dom";
 
@@ -59,9 +60,18 @@ export function GamePage(): JSX.Element {
       playerOneCount,
       playerTwoCount,
     };
-
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(preparedData));
-  });
+    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!data) {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(preparedData));
+      return;
+    }
+    const parsedData = JSON.parse(data);
+    const { theme } = parsedData;
+    localStorage.setItem(
+      LOCAL_STORAGE_KEY,
+      JSON.stringify({ ...preparedData, theme })
+    );
+  }, [board]);
 
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
@@ -171,9 +181,11 @@ export function GamePage(): JSX.Element {
           winner={currentPlayer === "X" ? "2" : "1"}
         />
       )}
-      <div className="flex gap-8 justify-center items-center">
-        <PlayersScore player="X" playersCont={playerOneCount} />
-        <div className="flex flex-col gap-6 text-center">
+      <div className="grid  md:gap-8 md:grid-cols-4 grid-cols-1 justify-items-center items-center">
+        <div className=" hidden md:block">
+          <PlayersScore player="X" playersCont={playerOneCount} />
+        </div>
+        <div className="flex flex-col gap-6 text-center w-full md:w-auto md:col-span-2">
           <div className="flex justify-between mb-5 items-center">
             <Link
               to={"/"}
@@ -190,17 +202,27 @@ export function GamePage(): JSX.Element {
             </button>
           </div>
           <Board board={board} handleOnClick={handleOnClick} />
-          <div className="flex justify-center items-center">
-            <div className=" h-28 w-28 bg-red rounded-lg shadow-xl flex items-center border-black border-2 flex-col relative">
-              <div className=" h-[5.2rem] w-[5.2rem] bg-red rounded-lg flex items-center border-black border-2 rotate-45 -top-9 absolute border-b-0 border-r-0"></div>
-              <p className="text-yellow text-xl z-10 mt-4">{`Player ${
-                currentPlayer === "X" ? "1" : "2"
-              } is moving`}</p>
-              <p className="text-yellow text-xl py-1">{`${timeLeft}s`}</p>
+          <div className="flex justify-between md:justify-center items-center">
+            <div className="md:hidden">
+              <PlayerScoreMobile player="X" playersCont={playerOneCount} />
+            </div>
+            <div className="flex justify-center items-center">
+              <div className=" w-20 md:h-28 md:w-28 bg-red rounded-lg shadow-xl flex items-center border-black border-2 flex-col relative">
+                <div className=" h-[3.7rem] w-[3.7rem] md:h-[5.2rem] md:w-[5.2rem] bg-red rounded-lg flex items-center border-black border-2 rotate-45 md:-top-9 -top-7 absolute border-b-0 border-r-0"></div>
+                <p className="text-yellow text-md md:text-xl z-10 md:mt-4">{`Player's ${
+                  currentPlayer === "X" ? "1" : "2"
+                } move`}</p>
+                <p className="text-yellow text-xl py-1">{`${timeLeft}s`}</p>
+              </div>
+            </div>
+            <div className="md:hidden">
+              <PlayerScoreMobile player="O" playersCont={playerTwoCount} />
             </div>
           </div>
         </div>
-        <PlayersScore player="O" playersCont={playerTwoCount} />
+        <div className=" hidden md:block">
+          <PlayersScore player="O" playersCont={playerTwoCount} />
+        </div>
       </div>
     </>
   );

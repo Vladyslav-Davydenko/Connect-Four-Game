@@ -11,7 +11,7 @@ export function InfoPage(): JSX.Element {
           <div className=" size-16 bg-yellow rounded-full relative shadow-xl">
             <div className=" size-12 bg-yellow rounded-full absolute inset-2 shadow-inner"></div>
           </div>
-          <p className="animate-appear_left_1 transition-all duration-500 opacity-0 fill-mode-forwards col-span-2">
+          <p className="w-[90%] animate-appear_left_1 transition-all duration-500 opacity-0 fill-mode-forwards col-span-2">
             Players choose yellow or red discs. They drop the discs into the
             grid, starting in the middle or at the edge to stack their colored
             discs upwards, horizontally, or diagonally.

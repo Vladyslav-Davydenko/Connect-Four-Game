@@ -30,15 +30,13 @@ export function DashBoardPage(): JSX.Element {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-6 w-[70%] justify-center items-center m-10 mb-56">
-      <h1 className="text-yellow text-7xl mb-20 animate-wiggle text-cente">
+    <div className="flex flex-col gap-6 w-[90%] md:w-[90%] justify-center items-center m-10 mb-56">
+      <h1 className="text-yellow md:text-7xl text-4xl mb-20 animate-wiggle text-cente">
         Dash Board
       </h1>
-      <div className="flex justify-center mb-5 items-center gap-24 w-full">
-        <div className="flex gap-2 w-32">
-          <p>Total games</p>
-          <p>:</p>
-          <p>{boardIds.length}</p>
+      <div className="flex justify-center mb-5 items-center md:gap-24 gap-8">
+        <div className="flex gap-2 md:w-32">
+          <p>{`Total: ${boardIds.length}`}</p>
         </div>
         <Link
           to={"/"}
@@ -47,7 +45,7 @@ export function DashBoardPage(): JSX.Element {
           Return Back
         </Link>
         <div className="flex flex-col gap-2">
-          <div className="flex gap-2 w-32">
+          <div className="flex gap-2 md:w-32">
             <div className="size-6 rounded-full relative animate-drop_down bg-red flex items-center justify-center">
               <div className="size-4 rounded-full absolute shadow-inner bg-red"></div>
             </div>
