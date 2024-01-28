@@ -13,6 +13,7 @@ import { Board } from "@/views/components/board";
 import { PopUpCongratulation } from "@/views/components/pop-up-windows";
 import { PlayersScore } from "@/views/components/board";
 import { PlayerScoreMobile } from "@/views/components/board";
+import { Timer } from "@/views/components/timer/Timer";
 
 import { Link } from "react-router-dom";
 
@@ -40,7 +41,6 @@ export function GamePage(): JSX.Element {
   });
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [timeLeft, setTimeLeft] = useState<number>(30);
 
   let playerOneCount = board.reduce(
     (count, row) => count + row.filter((ch) => ch === "X").length,
@@ -71,7 +71,7 @@ export function GamePage(): JSX.Element {
       LOCAL_STORAGE_KEY,
       JSON.stringify({ ...preparedData, theme })
     );
-  }, [board]);
+  }, [board, currentPlayer]);
 
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
@@ -87,19 +87,6 @@ export function GamePage(): JSX.Element {
       }
     }
   }, [board]);
-
-  useEffect(() => {
-    if (gameOver) return;
-    const timer = setTimeout(() => {
-      setTimeLeft((prev) => prev - 1);
-    }, 1000);
-    if (timeLeft < 0) {
-      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
-    }
-    return () => clearTimeout(timer);
-  }, [timeLeft]);
-
-  useEffect(() => setTimeLeft(30), [currentPlayer]);
 
   const checkWinner = (
     row: number,
@@ -206,15 +193,11 @@ export function GamePage(): JSX.Element {
             <div className="md:hidden">
               <PlayerScoreMobile player="X" playersCont={playerOneCount} />
             </div>
-            <div className="flex justify-center items-center">
-              <div className=" w-20 md:h-28 md:w-28 bg-red rounded-lg shadow-xl flex items-center border-black border-2 flex-col relative">
-                <div className=" h-[3.7rem] w-[3.7rem] md:h-[5.2rem] md:w-[5.2rem] bg-red rounded-lg flex items-center border-black border-2 rotate-45 md:-top-9 -top-7 absolute border-b-0 border-r-0"></div>
-                <p className="text-yellow text-md md:text-xl z-10 md:mt-4">{`Player's ${
-                  currentPlayer === "X" ? "1" : "2"
-                } move`}</p>
-                <p className="text-yellow text-xl py-1">{`${timeLeft}s`}</p>
-              </div>
-            </div>
+            <Timer
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+              gameOver={gameOver}
+            />
             <div className="md:hidden">
               <PlayerScoreMobile player="O" playersCont={playerTwoCount} />
             </div>
