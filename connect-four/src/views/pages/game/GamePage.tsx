@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useAppDispatch } from "@/redux/hooks";
+import { useSaveToLocal } from "@/views/hooks";
 
 import { addBoard, refreshStatus } from "@/redux/board/BoardSlice";
 
@@ -53,25 +54,7 @@ export function GamePage(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const preparedData = {
-      board,
-      currentPlayer,
-      playerOneCount,
-      playerTwoCount,
-    };
-    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (!data) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(preparedData));
-      return;
-    }
-    const parsedData = JSON.parse(data);
-    const { theme } = parsedData;
-    localStorage.setItem(
-      LOCAL_STORAGE_KEY,
-      JSON.stringify({ ...preparedData, theme })
-    );
-  }, [board, currentPlayer]);
+  useSaveToLocal({ board, currentPlayer, playerOneCount, playerTwoCount });
 
   useEffect(() => {
     for (let i = 0; i < board.length; i++) {
