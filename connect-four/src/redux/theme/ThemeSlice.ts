@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/redux/store";
 
+const LOCAL_STORAGE_KEY = "vilsivul_connect_four";
+
 export const themeSlice = createSlice({
   name: "theme",
-  initialState: "",
+  initialState: JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? "").theme,
   reducers: {
     changeTheme: (_, action) => {
       return action.payload;
