@@ -76,12 +76,20 @@ export function SingleUnit({ id, index }: Props): JSX.Element {
           <div className=" absolute -top-7 ">
             <div
               className={`size-16 rounded-full relative animate-drop_down ${
-                game.winner === "X" ? "bg-red" : "bg-yellow"
+                game.winner
+                  ? game.winner === "X"
+                    ? "bg-red"
+                    : "bg-yellow"
+                  : "bg-gray-600"
               } flex items-center justify-center shadow-lg`}
             >
               <div
                 className={`size-12 rounded-full absolute shadow-inner ${
-                  game.winner === "X" ? "bg-red" : "bg-yellow"
+                  game.winner
+                    ? game.winner === "X"
+                      ? "bg-red"
+                      : "bg-yellow"
+                    : "bg-gray-600"
                 }`}
               ></div>
             </div>
@@ -90,7 +98,9 @@ export function SingleUnit({ id, index }: Props): JSX.Element {
             <h1 className="text-dark-primary text-xl mt-2">{`Player ${
               game.winner === "X" ? "1" : "2"
             }`}</h1>
-            <p className="text-dark-primary text-4xl mt-4">Win</p>
+            <p className="text-dark-primary text-4xl mt-4">
+              {game.winner ? "Win" : "Draw"}
+            </p>
           </div>
         </div>
         <p className=" self-end">{`${timeAgo} ago`} </p>

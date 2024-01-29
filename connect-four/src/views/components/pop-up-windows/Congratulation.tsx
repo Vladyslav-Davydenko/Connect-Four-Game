@@ -5,7 +5,7 @@ import { selectError, selectStatus } from "@/redux/board/BoardSlice";
 import { Status } from "@/types/domain";
 
 interface Props {
-  winner: string;
+  winner: string | null;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleSaveGame: () => void;
 }
@@ -30,11 +30,17 @@ export function PopUpCongratulation({
   return (
     <div className="absolute bg-black bg-opacity-40 min-h-dvh w-full z-10 flex justify-center items-center animate-bg_fade_in">
       <div className=" bg-primary md:p-10 p-6 rounded-xl shadow-lg absolute z-20 opacity-0 animate-appear_3 fill-mode-forwards flex flex-col justify-center items-center gap-10">
-        <h1 className="text-yellow text-2xl md:text-4xl">Congratulation!</h1>
+        <h1 className="text-yellow text-2xl md:text-4xl">
+          {winner ? "Congratulation" : "Draw"}
+        </h1>
         {error ? (
           <h2 className="text-yellow text-lg md:text-2xl">{error.message}</h2>
         ) : (
-          <h2 className="text-yellow text-lg md:text-2xl">{`Player ${winner} win the game`}</h2>
+          <h2 className="text-yellow text-lg md:text-2xl">
+            {winner
+              ? `Player ${winner} win the game!`
+              : "Good game, try again!"}
+          </h2>
         )}
         <div className="flex items-center gap-8">
           <button

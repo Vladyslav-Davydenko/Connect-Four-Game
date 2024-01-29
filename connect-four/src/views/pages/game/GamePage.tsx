@@ -42,6 +42,7 @@ export function GamePage(): JSX.Element {
   });
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const drawResult = board.some((row) => row.includes(""));
 
   let playerOneCount = board.reduce(
     (count, row) => count + row.filter((ch) => ch === "X").length,
@@ -54,6 +55,7 @@ export function GamePage(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  // saves data to local storage
   useSaveToLocal({ board, currentPlayer, playerOneCount, playerTwoCount });
 
   useEffect(() => {
@@ -78,6 +80,12 @@ export function GamePage(): JSX.Element {
     colStep: number
   ) => {
     const player = board[row][col];
+
+    if (!drawResult) {
+      dispatch(refreshStatus());
+      setGameOver(true);
+      setIsOpen(true);
+    }
 
     // formula to check all possible winnig conditions
     if (
@@ -131,7 +139,7 @@ export function GamePage(): JSX.Element {
   const handleSaveGame = async () => {
     const preparedData: Omit<Connect4Game, "id" | "createdDate"> = {
       board,
-      winner: currentPlayer === "X" ? "O" : "X",
+      winner: drawResult ? (currentPlayer === "X" ? "O" : "X") : null,
       player1Score: playerOneCount,
       player2Score: playerTwoCount,
     };
@@ -148,7 +156,7 @@ export function GamePage(): JSX.Element {
         <PopUpCongratulation
           handleSaveGame={handleSaveGame}
           setIsOpen={setIsOpen}
-          winner={currentPlayer === "X" ? "2" : "1"}
+          winner={drawResult ? (currentPlayer === "X" ? "2" : "1") : null}
         />
       )}
       <div className="grid  md:gap-8 md:grid-cols-4 grid-cols-1 justify-items-center items-center">

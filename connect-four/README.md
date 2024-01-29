@@ -4,10 +4,6 @@ The idea of this project is to implement connect-four game using react for logic
 
 # TODO
 
-## Implement functionality of draw round
-
-## Optimise for phones
-
 ## Optimisation
 
 ## Sound effects
