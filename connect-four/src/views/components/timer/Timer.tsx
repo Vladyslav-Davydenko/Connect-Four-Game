@@ -11,7 +11,7 @@ export const Timer = ({
   setCurrentPlayer,
   currentPlayer,
 }: Props): JSX.Element => {
-  const [timeLeft, setTimeLeft] = useState<number>(30);
+  const [timeLeft, setTimeLeft] = useState<number>(0);
 
   useEffect(() => {
     if (gameOver) return;
@@ -22,7 +22,7 @@ export const Timer = ({
       setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
     }
     return () => clearTimeout(timer);
-  }, [timeLeft]);
+  }, [timeLeft, gameOver]);
 
   useEffect(() => setTimeLeft(30), [currentPlayer]);
   return (
