@@ -72,7 +72,5 @@ Visit http://localhost:5173 to play the game.
 ### Mobile version
 
 ![mobile-dash-board](https://github.com/Vladyslav-Davydenko/Connect-Four-Game/blob/main/connect-four/public/mobile-dash-board.png)
-
 ![mobile-game](https://github.com/Vladyslav-Davydenko/Connect-Four-Game/blob/main/connect-four/public/mobile-game.png)
-
 ![mobile-theme](https://github.com/Vladyslav-Davydenko/Connect-Four-Game/blob/main/connect-four/public/mobile-theme.png)
