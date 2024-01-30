@@ -61,7 +61,7 @@ Visit http://localhost:5173 to play the game.
 
 ![pop-up](https://github.com/Vladyslav-Davydenko/Connect-Four-Game/blob/main/connect-four/public/pop-up.png)
 
-![draw-page](https://github.com/Vladyslav-Davydenko/Connect-Four-Game/blob/main/connect-four/public/draw-page.png)
+![draw-page](https://github.com/Vladyslav-Davydenko/Connect-Four-Game/blob/main/connect-four/public/draw.png)
 
 ![rules-page](https://github.com/Vladyslav-Davydenko/Connect-Four-Game/blob/main/connect-four/public/rules-page.png)
 
