@@ -1,4 +1,6 @@
-export function Icon(): JSX.Element {
+import { memo } from "react";
+
+export const Icon = memo((): JSX.Element => {
   return (
     <div className=" grid grid-cols-2 gap-1">
       <div className="size-6 rounded-full relative animate-drop_down bg-yellow flex items-center justify-center">
@@ -15,4 +17,4 @@ export function Icon(): JSX.Element {
       </div>
     </div>
   );
-}
+});

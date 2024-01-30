@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 
 import {
@@ -10,6 +8,7 @@ import {
 } from "@/redux/board/BoardSlice";
 
 import { SingleUnit } from "@/views/components/dashboard";
+import { ReturnButton } from "@/views/components/buttons";
 
 import { Loader } from "@/views/components/loader";
 import { useEffect } from "react";
@@ -38,12 +37,7 @@ export function DashBoardPage(): JSX.Element {
         <div className="flex gap-2 md:w-32">
           <p>{`Total: ${boardIds.length}`}</p>
         </div>
-        <Link
-          to={"/"}
-          className="py-1 px-2 border-white text-white border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards text-center w-32"
-        >
-          Return Back
-        </Link>
+        <ReturnButton />
         <div className="flex flex-col gap-2">
           <div className="flex gap-2 md:w-32">
             <div className="size-6 rounded-full relative animate-drop_down bg-red flex items-center justify-center">

@@ -15,8 +15,7 @@ import { PopUpCongratulation } from "@/views/components/pop-up-windows";
 import { PlayersScore } from "@/views/components/board";
 import { PlayerScoreMobile } from "@/views/components/board";
 import { Timer } from "@/views/components/timer/Timer";
-
-import { Link } from "react-router-dom";
+import { ReturnButton } from "@/views/components/buttons";
 
 const LOCAL_STORAGE_KEY = "vilsivul_connect_four";
 
@@ -165,12 +164,7 @@ export function GamePage(): JSX.Element {
         </div>
         <div className="flex flex-col gap-6 text-center w-full md:w-auto md:col-span-2">
           <div className="flex justify-between mb-5 items-center">
-            <Link
-              to={"/"}
-              className="py-1 px-2 border-white text-white border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards text-center"
-            >
-              Return Back
-            </Link>
+            <ReturnButton />
             <Icon />
             <button
               className="py-1 px-2 border-white text-white  border rounded-lg hover:-translate-y-1 active:translate-y-1.5 duration-500 shadow-lg hover:shadow-xl active:shadow-md animate-appear_1 fill-mode-backwards"

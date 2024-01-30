@@ -1,19 +1,3 @@
 # React + TypeScript + Vite + Tailwind
 
 The idea of this project is to implement connect-four game using react for logic and tailwind for styling. All of it will be written on TypeScript.
-
-# TODO
-
-## Optimisation
-
-## Sound effects
-
-# Difficult tasks
-
-## Implement multiplayer
-
-## Implement game settings (Number of players, board dimensions and etc)
-
-## Add tests to the project
-
-## Host the project
